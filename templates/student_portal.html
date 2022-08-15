@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    {% include 'base/header.html' %}
+
+    {% block head %}
+    {% endblock %}
+
+</head>
+
+<body class="animsition">
+    <div class="page-wrapper">
+        <!-- HEADER MOBILE-->
+        <div class="page-content--bge5">
+            <div class="container">
+                <div class="login-wrap">
+                    <div class="login-content">
+                        <div class="p-5 mb-4 bg-light rounded-3">
+                          <div class="container-fluid py-5">
+                            <h2 class="display-5 fw-bold">Hello <br> {{ due.name }}</h2>
+
+                              {% if due.amount  %}
+                                <h3 class="col-md-8 fs-4">You have previous due: {{ due.amount }}</h3>
+                                <p>Please Pay your due amount to see your progress report.</p>
+                              {% else %}
+                                <br>
+                                <a href="../exam/my_progress_report/" ><button class="btn btn-primary btn-lg" type="button">My Progress Report</button></a>
+                              {% endif %}
+                                <a href="../logout/" ><button type="button">Logout</button></a>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+   {% include 'base/js.html' %}
+
+</body>
+
+</html>
+<!-- end document-->

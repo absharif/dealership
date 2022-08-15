@@ -1,0 +1,70 @@
+{% extends "base/base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+ <!-- MAIN CONTENT-->
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="card filter-area">
+                                    <div class="card-header">
+                                        <strong>Select Delivery Man</strong>
+                                    </div>
+                                    <div class="card-body card-block">
+                                        <form action="" method="post" class="form-horizontal" id="orderFilterForm" >
+                                            {% csrf_token %}
+
+                                            <div class="form-group row">
+                                                  <div class="form-group col-md-3">
+                                                    <label>Delivery Man</label>
+                                                    {{ form.delivery_man|add_class:"form-control" }}
+                                                  </div>
+
+                                                  <div class="form-group col-md-1">
+                                                    <label>Action</label>
+                                                    <button type="submit" class="btn btn-md btn-info">Filter</button>
+                                                  </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <strong>Delivery Sheet</strong>
+                                    </div>
+                                    <div class="card-body card-block">
+                                        {% if products %}
+                                            <table>
+                                              <thead>
+                                                <tr style="font-weight: bold; background-color: rgb(100, 100, 100); color: white;">
+                                                  <td>SL</td>
+                                                  <td>Product</td>
+                                                  <td>Quantity</td>
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                                 {% for key, product in products.items %}
+                                                    <tr>
+                                                      <td>{{ forloop.counter }}</td>
+                                                      <td style="text-align:left; padding-left:10px;">{{ product.product.name }}</td>
+                                                      <td>{{ product.quantity }}</td>
+                                                    </tr>
+                                                 {% endfor %}
+                                              </tbody>
+                                            </table>
+                                        {% else %}
+                                            <h4>No Order Found !</h4>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endblock %}

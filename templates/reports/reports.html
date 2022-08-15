@@ -1,0 +1,84 @@
+{% extends "base/base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+
+
+ <!-- MAIN CONTENT-->
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card filter-area">
+                                    <div class="card-header">
+                                        <strong>Student Reports</strong>
+                                    </div>
+                                    <div class="card-body card-block">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item"><a href="{% url 'student_list' %}">Student List</a></li>
+                                            <li class="list-group-item"><a href="{% url 'student_attendance_info' %}">Month Wise Student Attendance Information</a></li>
+                                            <li class="list-group-item"><a href="{% url 'attendance_overall_yearly' %}">Student Attendance Overall Academic Year Wise</a></li>
+                                            <li class="list-group-item"><a href="{% url 'attendance_sheet_monthly' %}">Student Attendance Sheet Month Wise</a></li>
+                                            <li class="list-group-item"><a href="{% url 'student_id_card' %}">Student ID Card</a></li>
+                                            <li class="list-group-item"><a href="{% url 'student_tag' %}">Print Tag</a></li>
+                                            <li class="list-group-item"><a href="{% url 'student_class_routine' %}">Class Routine</a></li>
+                                            <li class="list-group-item"><a href="{% url 'tc' %}">Transfer Certificate</a></li>
+                                            <li class="list-group-item"><a href="{% url 'testimonial' %}">Testimonial</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="card filter-area">
+                                    <div class="card-header">
+                                        <strong>HR Reports</strong>
+                                    </div>
+                                    <div class="card-body card-block">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item"><a href="{% url 'hr_list' %}">HR List</a></li>
+                                            <li class="list-group-item"><a href="{% url 'hr_attendance_sheet_monthly' %}">HR Attendance Sheet Month Wise</a></li>
+                                            <li class="list-group-item"><a href="{% url 'hr_attendance_date_wise' %}">HR Attendance Information Date Wise</a></li>
+                                            <li class="list-group-item"><a href="{% url 'hr_id_card' %}">HR ID Card</a></li>
+                                            <li class="list-group-item"><a href="{% url 'hr_class_routine' %}">HR Class Routine</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="card filter-area">
+                                    <div class="card-header">
+                                        <strong>Exam Reports</strong>
+                                    </div>
+                                    <div class="card-body card-block">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item"><a href="{% url 'progress_report' %}">Progress Report</a></li>
+                                            <li class="list-group-item"><a href="{% url 'grand_final_tabulation' %}">Grand Final Tabulation Sheet</a></li>
+                                            <li class="list-group-item"><a href="{% url 'section_pass_fall' %}">Section Wise Pass/Fail Report</a></li>
+                                            <li class="list-group-item"><a href="{% url 'section_grade_info' %}">Section Wise Grade Info</a></li>
+                                            <li class="list-group-item"><a href="{% url 'fail_list_subject_details' %}">Fall List Subject Details</a></li>
+                                            <li class="list-group-item"><a href="{% url 'section_merit_list' %}">Section Wise Merit List</a></li>
+                                            <li class="list-group-item"><a href="{% url 'admit_card' %}">Admit Card</a></li>
+                                            <li class="list-group-item"><a href="{% url 'exam_seat_plan' %}">Exam Seat Plan</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="card filter-area">
+                                    <div class="card-header">
+                                        <strong><a href="{% url 'accounting_reports' %}">Accounting Reports</a></strong>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endblock %}
+
+
+

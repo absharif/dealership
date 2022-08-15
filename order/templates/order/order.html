@@ -1,0 +1,68 @@
+{% extends "base/base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+ <!-- MAIN CONTENT-->
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <strong>Order Information
+                                            <span><a href="{% url 'order_edit' context.order_obj.id  %}">[Edit]</a> <a href="{% url 'order_delete' context.order_obj.id  %}">[Delete]</a></span>
+                                        </strong>
+                                    </div>
+                                    <div class="card-body card-block">
+                                        {% if context.order_obj %}
+                                            <h3>Order ID: {{ context.order_obj.id }}</h3>
+                                            <li>Date of Order: {{ context.order_obj.date }}</li>
+                                            <li>Outlet Name: {{ context.order_obj.outlet }}</li>
+                                            <li>Outlet Address: {{ context.order_obj.address }}</li>
+                                            <li>DSR: {{ context.order_obj.dsr }}</li>
+                                            <li>Delivery Man: {{ context.order_obj.delivery_man }}</li>
+                                            <li>Status: {{ context.order_obj.status }}</li>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <strong>Selected Product
+                                            <span><a href="{% url 'order_item_edit' context.order_obj.id  %}">[Edit]</a></span>
+                                        </strong>
+                                    </div>
+                                    <div class="card-body card-block">
+                                        <table>
+                                              <thead>
+                                                <tr style="font-weight: bold; background-color: rgb(100, 100, 100); color: white;">
+                                                  <td>Name</td>
+                                                  <td>Unit Price</td>
+                                                  <td>Quantity</td>
+                                                  <!--<td>Total</td>-->
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+
+                                                {% for item in context.order_items %}
+                                                    <tr>
+                                                      <td style="text-align:left; padding-left:10px;">{{ item.product.name }}</td>
+                                                      <td>{{ item.product.trade_price }}</td>
+                                                      <td>{{ item.quantity }}</td>
+                                                      <!--<td>{{ item.quantity }}</td>-->
+                                                    </tr>
+
+                                                 {% endfor %}
+                                              </tbody>
+                                            </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endblock %}

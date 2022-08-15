@@ -1,0 +1,45 @@
+{% extends "base/base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+ <!-- MAIN CONTENT-->
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <strong>Selected Product</strong>
+                                    </div>
+                                    <div class="card-body card-block">
+                                        <form action="{% url 'order_item_edit' order.id %}" method="post" class="form-horizontal" id="personForm" >
+                                        {% csrf_token %}
+                                            <table>
+                                              <thead>
+                                                <tr style="font-weight: bold; background-color: rgb(100, 100, 100); color: white;">
+                                                  <td>Name</td>
+                                                  <td>Quantity</td>
+
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+
+                                                {% for item in order_items %}
+                                                    <tr>
+                                                      <td style="text-align:left; padding-left:10px;">{{ item.product.name }}</td>
+                                                      <td><input type="number" value="{{ item.quantity }}" name="{{ item.product.id }}" style="width:100%; text-align:center" required></td>
+                                                    </tr>
+                                                 {% endfor %}
+                                              </tbody>
+                                            </table>
+                                            <br>
+                                            <button style="width:100%" type="submit" class="btn btn-md btn-success">Save</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endblock %}

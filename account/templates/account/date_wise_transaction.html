@@ -1,0 +1,103 @@
+{% extends "base/base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+ <!-- MAIN CONTENT-->
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <!--<h3 class="only-for-print text-center">মোজাহেদ/মোজাহেদা এর তালিকা</h3>-->
+                                <div class="card filter-area">
+                                    <div class="card-header">
+                                        <strong>Enter Date Range</strong>
+                                    </div>
+                                    <div class="card-body card-block">
+                                        <form action="" method="post" class="form-horizontal" id="personForm" >
+                                            {% csrf_token %}
+
+                                            <div class="form-group row">
+                                              <!-- if request.user.is_superuser -->
+                                              <div class="form-group col-md-2">
+                                                <label for="inputState3">Form (YYYY-MM-DD)</label>
+                                                {{ form.start_date|add_class:"form-control" }}
+                                              </div>
+
+                                              <div class="form-group col-md-2">
+                                                <label for="inputState1">To (YYYY-MM-DD)</label>
+                                                {{ form.end_date|add_class:"form-control" }}
+                                              </div>
+
+
+                                              <div class="form-group col-md-2">
+                                                <button style="width: 100%; margin-top:33px;" type="submit" class="btn btn-md btn-info">Search</button>
+                                              </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 print">
+                               <div class="container only-for-print">
+                                <div class="row">
+                                  <div class="col-8" style="padding:10px;">
+                                    <div class="float-left">
+                                      <img src="{{ info.school.logo.url }}" alt="" width="100px;">
+                                    </div>
+                                      <div class="float-left" style="padding: 10px;">
+                                        <h2>{{ info.school.name }} </h2>
+                                        <p>{{ info.school.address }}</p>
+                                      </div>
+                                  </div>
+                                    <div class="col-4">
+                                    </div>
+                                  </div>
+                                </div>
+
+                              <div class="container">
+                                <div class="row justify-content-md-center headline">
+                                  <div class="col-12">
+                                    <hr>
+                                  </div>
+                                  <div class="col-md-auto">
+                                    <h3>Transaction Details</h3>
+                                      <br>
+                                  </div>
+                                </div>
+
+                                <div class="row headline">
+                                    <table>
+                                      <thead>
+                                        <tr style="font-weight: bold; background-color: rgb(100, 100, 100); color: white;">
+                                          <td>Date</td>
+                                          <td>Student ID</td>
+                                          <td>Class</td>
+                                          <td>Section</td>
+                                          <td>Fee Title</td>
+                                          <td>Total Amount</td>
+
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        {% for fee in data %}
+                                        <tr>
+                                          <td>{{ fee.payment_date }}</td>
+                                          <td>{{ fee.student }}</td>
+                                          <td>{{ fee.classes }}</td>
+                                          <td>{{ fee.section }}</td>
+                                          <td>{{ fee.fee_title }}</td>
+                                          <td>{{ fee.amount }}</td>
+
+                                        </tr>
+                                        {% endfor %}
+                                      </tbody>
+                                    </table>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endblock %}

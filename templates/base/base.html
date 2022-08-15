@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    {% include 'base/header.html' %}
+    {% block head %}
+    {% endblock %}
+
+</head>
+
+<body class="animsition">
+
+<!-- PAGE CONTAINER-->
+<div class="page-container">
+    <div class="page-wrapper">
+        <!-- HEADER MOBILE-->
+        {% include 'base/nav.html' %}
+        <!-- END HEADER MOBILE-->
+
+        <!-- MENU SIDEBAR-->
+        {% include 'base/sidebar.html' %}
+        <!-- END MENU SIDEBAR-->
+
+        <!-- PAGE CONTAINER-->
+        {% block content %}
+        {% endblock %}
+
+    </div>
+    {% include 'base/js.html' %}
+    {% block after_js %}
+    {% endblock %}
+</body>
+
+</html>
+<!-- end document-->
+
+
+
+
+
+

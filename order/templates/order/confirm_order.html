@@ -1,0 +1,96 @@
+{% extends "base/base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+ <!-- MAIN CONTENT-->
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card filter-area">
+                                    <div class="card-header">
+                                        <strong>Selected Product</strong>
+                                    </div>
+                                    <div class="card-body card-block">
+                                        {% if products %}
+                                            <table>
+                                              <thead>
+                                                <tr style="font-weight: bold; background-color: rgb(100, 100, 100); color: white;">
+                                                  <td>Name</td>
+                                                  <td>Quantity</td>
+
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+
+                                                {% for product, quantity in products.items %}
+                                                    <tr>
+                                                      <td style="text-align:left; padding-left:10px;">{{ product.name }}</td>
+                                                      <td>{{ quantity }}</td>
+
+                                                    </tr>
+
+                                                 {% endfor %}
+                                              </tbody>
+                                            </table>
+                                        {% else %}
+                                            <h4>No Product Found !</h4>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% if products %}
+                                <div class="col-md-12">
+                                    <div class="card filter-area">
+                                        <div class="card-header">
+                                            <strong>Select Order Information</strong>
+                                        </div>
+                                        <div class="card-body card-block">
+                                            <form action="" method="post" class="form-horizontal" id="personForm" >
+                                                {% csrf_token %}
+                                                <div class="form-group row">
+                                                      <div class="form-group col-md-12">
+                                                        <label>DSR</label>
+                                                        {{ form.dsr|add_class:"form-control" }}
+                                                      </div>
+
+                                                      <div class="form-group col-md-12">
+                                                        <label>Memo No</label>
+                                                        {{ form.memo_no|add_class:"form-control" }}
+                                                      </div>
+
+                                                      <div class="form-group col-md-12">
+                                                        <label>Outlet Name</label>
+                                                        {{ form.outlet|add_class:"form-control" }}
+                                                      </div>
+
+                                                      <div class="form-group col-md-12">
+                                                        <label>Address</label>
+                                                        {{ form.address|add_class:"form-control" }}
+                                                      </div>
+
+                                                      <div class="form-group col-12">
+                                                        <label>Remarks</label>
+                                                        {{ form.remarks|add_class:"form-control" }}
+                                                      </div>
+
+
+                                                      <div class="form-group col-md-6">
+                                                        <a style="width:100%" href="../new_order/"><button style="width:100%" type="submit" class="btn btn-md btn-info">Update Products</button></a>
+                                                      </div>
+
+                                                      <div class="form-group col-md-6">
+                                                        <button style="width:100%" type="submit" class="btn btn-md btn-success">Save</button>
+                                                      </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endblock %}

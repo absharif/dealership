@@ -1,0 +1,73 @@
+{% load auth_extras %}
+<li class=" has-sub">
+    <a class="js-arrow" href="{% url 'dashboard' %}">
+        <i class="fas fa-tachometer-alt"></i>Dashboard</a>
+</li>
+{% if request.user|has_group:"Admin" %}
+    <li class=" has-sub">
+        <a class="js-arrow" href="#">
+            <i class="fas fa-group"></i>HR</a>
+        <ul class="list-unstyled navbar__sub-list js-sub-list">
+            <li><a href="{% url 'hr_list' %}">- HR List</a></li>
+        </ul>
+    </li>
+    <li class=" has-sub">
+        <a class="js-arrow" href="#">
+            <i class="fas fa-box"></i>Products</a>
+        <ul class="list-unstyled navbar__sub-list js-sub-list">
+            <li><a href="{% url 'product_category' %}">- Product Category</a></li>
+            <li><a href="{% url 'products' %}">- Product List</a></li>
+            <li><a href="{% url 'product_transaction' %}">- Product Transaction</a></li>
+            <li><a href="{% url 'product_transaction_from_delivery_sheet' %}">- Product Transaction From Delivery Sheet</a></li>
+        </ul>
+    </li>
+    <li class=" has-sub">
+        <a class="js-arrow" href="#">
+            <i class="fas fa-list"></i>Orders</a>
+        <ul class="list-unstyled navbar__sub-list js-sub-list">
+            <li><a href="{% url 'orders' %}">- Orders</a></li>
+            <li><a href="{% url 'new_order' %}">- New Order</a></li>
+            <li><a href="{% url 'delivery_sheet' %}">- Delivery Sheet</a></li>
+        </ul>
+    </li>
+
+    <li class=" has-sub">
+        <a class="js-arrow" href="#">
+            <i class="fas fa-calculator"></i>Accounts</a>
+        <ul class="list-unstyled navbar__sub-list js-sub-list">
+            <li><a href="{% url 'payments' %}">- Payments</a></li>
+            <li><a href="{% url 'new_payment' %}">- New Payments</a></li>
+            <li><a href="{% url 'add_income' %}">- Add Income</a></li>
+            <li><a href="{% url 'add_expense' %}">- Add Expanse</a></li>
+            <li><a href="{% url 'double_entry' %}">- Add Double Entry</a></li>
+            <li><a href="{% url 'accounting_reports' %}">- Accounting Reports</a></li>
+        </ul>
+    </li>
+    <li class=" has-sub">
+        <a class="js-arrow" href="{% url 'admin:index' %}">
+            <i class="fas fa-wrench"></i>Settings
+        </a>
+    </li>
+{% elif request.user|has_group:"SR" %}
+     <li class=" has-sub">
+        <a class="js-arrow" href="#">
+            <i class="fas fa-box"></i>Products</a>
+        <ul class="list-unstyled navbar__sub-list js-sub-list">
+            <li><a href="{% url 'product_category' %}">- Product Category</a></li>
+            <li><a href="{% url 'products' %}">- Product List</a></li>
+        </ul>
+    </li>
+    <li class=" has-sub">
+        <a class="js-arrow" href="#">
+            <i class="fas fa-list"></i>Orders</a>
+        <ul class="list-unstyled navbar__sub-list js-sub-list">
+            <li><a href="{% url 'orders' %}">- Orders</a></li>
+            <li><a href="{% url 'new_order' %}">- New Order</a></li>
+        </ul>
+    </li>
+{% endif %}
+
+<li class=" has-sub">
+    <a class="js-arrow" href="{% url 'logout' %}">
+        <i class="zmdi zmdi-power"></i>Logout</a>
+</li>

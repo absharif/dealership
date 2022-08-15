@@ -1,0 +1,129 @@
+{% extends "base/base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+<style>
+    @page{
+    size: landscape;
+      }
+</style>
+ <!-- MAIN CONTENT-->
+            <!--<div class="main-content">-->
+                <!--<div class="section__content">-->
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card filter-area">
+                                    <div class="card-header">
+                                        <strong>Fee Head Collection Summary</strong>
+                                    </div>
+                                    <div class="card-body card-block">
+                                        <form action="" method="post" class="form-horizontal" id="personForm" >
+                                            {% csrf_token %}
+
+                                            <div class="form-group row">
+                                              <div class="form-group col-md-4">
+                                                <label for="inputState3">Fee Head</label>
+                                                {{ form.fee_head|add_class:"form-control" }}
+                                              </div>
+
+                                              <div class="form-group col-md-2">
+                                                <button style="width: 100%; margin-top:33px;" type="submit" class="btn btn-md btn-info">Search</button>
+                                              </div>
+                                                {% if submitted %}
+                                                   <div class="form-group col-md-2 text-center">
+                                                    <button style="width: 100%; margin-top:33px;" type="submit" onclick="window.print()" class="btn btn-md btn-info">Print</button>
+                                                   </div>
+                                                {% endif %}
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            {% if submitted %}
+
+                            <div class="col-lg-12 print">
+
+                               <div class="container only-for-print">
+                                <div class="row">
+                                  <div class="col-8" style="padding:10px;">
+                                    <div class="float-left">
+                                      <img src="{{ info.school.logo.url }}" alt="" width="100px;">
+                                    </div>
+                                      <div class="float-left" style="padding: 10px;">
+                                        <h2>{{ info.school.name }} </h2>
+                                        <p>{{ info.school.address }}</p>
+                                      </div>
+                                  </div>
+                                    <div class="col-4">
+                                    </div>
+                                  </div>
+                                </div>
+
+                              <div class="container">
+                                <div class="row justify-content-md-center headline">
+                                  <div class="col-12">
+                                    <hr>
+                                  </div>
+                                  <div class="col-md-auto text-center">
+                                    <h3>Fee Head Collection Summary</h3>
+                                      <br>
+                                  </div>
+                                </div>
+
+                                <div class="row headline" >
+                                    <div style="width:98%">
+
+                                        <table style="text-align: center">
+                                          <thead>
+                                            <tr style="font-weight: bold; background-color: rgb(100, 100, 100); color: white;">
+                                              <th>Academic Year</th>
+                                              <th>Fee Head</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            <tr>
+                                              <th>{{ info.school.current_academic_year }}</th>
+                                              <th>{{ info.fee_head }}</th>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+
+                                        <table>
+                                          <thead>
+                                            <tr style="font-weight: bold; background-color: rgb(100, 100, 100); color: white;">
+                                                <td>Class</td>
+                                                {% for month in info.months %}
+                                                    <td style="padding: 3px;">{{ month }}</td>
+                                                {% endfor %}
+                                                <td>Class Total</td>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            {% for classes, collection in data.items %}
+                                            <tr>
+                                              {% for amount in collection %}
+                                                <td style="text-align: left; padding:10px;">{% if amount %}{{ amount }}{% else %} - {% endif %}</td>
+                                              {% endfor %}
+                                            </tr>
+                                            {% endfor %}
+                                            <tr>
+                                                <td>Monthly Total</td>
+                                              {% for total in info.month_total.values %}
+                                                <td>{{ total }}</td>
+                                              {% endfor %}
+                                                <td><b>{{ info.grand_total }}<br>(Grand Total)</b></td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                              </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                <!--</div>-->
+            <!--</div>-->
+{% endblock %}

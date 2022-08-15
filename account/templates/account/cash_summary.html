@@ -1,0 +1,144 @@
+{% extends "base/base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+ <!-- MAIN CONTENT-->
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card filter-area">
+                                    <div class="card-header">
+                                        <strong>Select Date Range</strong>
+                                    </div>
+                                    <div class="card-body card-block">
+                                        <form action="" method="post" class="form-horizontal" id="personForm" >
+                                            {% csrf_token %}
+
+                                            <div class="form-group row">
+                                                  <div class="form-group col-md-5">
+                                                    <label>From</label>
+                                                    {{ form.start_date|add_class:"form-control" }}
+                                                  </div>
+
+                                                  <div class="form-group col-md-5">
+                                                    <label>To</label>
+                                                    {{ form.end_date|add_class:"form-control" }}
+                                                  </div>
+
+                                                  <div class="form-group col-md-2">
+                                                    <label style="padding:-999px">submit</label>
+                                                    <button type="submit" class="btn btn-md btn-info">Filter</button>
+                                                  </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            {% if submitted %}
+                            <div class="col-lg-12 print">
+
+                               <div class="container only-for-print">
+                                <div class="row">
+                                  <div class="col-8" style="padding:10px;">
+                                    <div class="float-left">
+                                      <img src="{{ info.school.logo.url }}" alt="" width="100px;">
+                                    </div>
+                                      <div class="float-left" style="padding: 10px;">
+                                        <h2>{{ info.school.name }} </h2>
+                                        <p>{{ info.school.address }}</p>
+                                      </div>
+                                  </div>
+                                    <div class="col-4">
+                                    </div>
+                                  </div>
+                                </div>
+
+                              <div class="container">
+                                <div class="row justify-content-md-center headline">
+                                  <div class="col-12">
+                                    <hr>
+                                  </div>
+                                  <div class="col-md-auto">
+                                      <h3>Cash Summary</h3>
+                                  </div>
+                                </div>
+                                    <div class="row headline">
+                                        <table style="text-align: center;">
+                                          <thead>
+                                            <tr style="font-weight: bold; background-color: rgb(100, 100, 100); color: white;">
+                                              <th>From</th>
+                                              <th>To</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            <tr>
+                                              <th>{{ info.start_date }}</th>
+                                              <th>{{ info.end_date }}</th>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+
+                                        <table>
+                                          <thead>
+                                            <tr style="font-weight: bold; background-color: rgb(100, 100, 100); color: white;">
+                                              <td>Ledger</td>
+                                              <td>Amount</td>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                             {% for key, value in data.items %}
+                                                    <tr>
+                                                      <td colspan="2"><b>{{ key }}</b></td>
+                                                    </tr>
+                                                 {% for name, amount in value.items %}
+                                                    <tr>
+                                                      <td style="text-align: left; padding:5px;">{{ name }}</td>
+                                                      <td style="text-align: right; padding:5px;">
+                                                          {% if amount.debit_amount__sum %}
+                                                            {{ amount.debit_amount__sum }}
+                                                          {% else %}
+                                                            {{ amount.credit_amount__sum }}
+                                                          {% endif %}
+                                                      </td>
+                                                    </tr>
+                                                 {% endfor %}
+
+                                                   <tr>
+                                                       <td style="text-align: left; padding:5px;"><b>Total {{ key }}</b></td>
+                                                       {% if key == "Revenue" %}
+                                                           <!--<td style="text-align: right; padding:5px;"><b>{{ info.total_revenue_debit }}</b></td>-->
+                                                           <td style="text-align: right; padding:5px;"><b>{{ info.total_revenue_credit }}</b></td>
+                                                       {% else %}
+                                                            <td style="text-align: right; padding:5px;"><b>{{ info.total_expense_debit }}</b></td>
+                                                            <!--<td style="text-align: right; padding:5px;"><b>{{ info.total_expense_credit }}</b></td>-->
+                                                       {% endif %}
+                                                    </tr>
+                                             {% endfor %}
+
+                                                    <tr><td colspan="2"></td></tr>
+                                                    <tr>
+                                                        <td>Total Revenue</td>
+                                                        <td>{{ info.total_revenue_credit }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Total Expense</td>
+                                                        <td>{{ info.total_expense_debit }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Total Profit/Loss</td>
+                                                        <td>{{ info.total_profit }}</td>
+                                                    </tr>
+
+                                          </tbody>
+                                        </table>
+                                    </div>
+                              </div>
+
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endblock %}

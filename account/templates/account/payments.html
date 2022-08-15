@@ -1,0 +1,159 @@
+{% extends "base/base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+ <!-- MAIN CONTENT-->
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="card filter-area">
+                                    <div class="card-header">
+                                        <strong>Payment Filter Form</strong>
+                                    </div>
+                                    <div class="card-body card-block">
+                                        <form action="" method="post" class="form-horizontal" id="orderFilterForm" >
+                                            {% csrf_token %}
+
+                                            <div class="form-group row">
+                                                  <div class="form-group col-md-3">
+                                                    <label>From</label>
+                                                    {% render_field form.start_date type="date" class="form-control"%}
+                                                  </div>
+
+                                                  <div class="form-group col-md-3">
+                                                    <label>To</label>
+                                                    {% render_field form.end_date type="date" class="form-control" placeholder="" %}
+                                                  </div>
+
+                                                  <div class="form-group col-md-3">
+                                                    <label>Token</label>
+                                                    {{ form.token|add_class:"form-control" }}
+                                                  </div>
+
+                                                  <div class="form-group col-md-3">
+                                                    <label>Order ID</label>
+                                                    {{ form.order|add_class:"form-control" }}
+                                                  </div>
+                                                  <div class="form-group col-md-3">
+                                                    <label>Payment Type</label>
+                                                    {{ form.type|add_class:"form-control" }}
+                                                  </div>
+                                                  <div class="form-group col-md-3">
+                                                    <label>Banks Name</label>
+                                                    {{ form.bank_name|add_class:"form-control" }}
+                                                  </div>
+                                                  <div class="form-group col-md-3">
+                                                    <label>Check No</label>
+                                                    {{ form.check_no|add_class:"form-control" }}
+                                                  </div>
+                                                  <div class="form-group col-md-3">
+                                                    <label>Check Date</label>
+                                                    {% render_field form.check_date type="date" class="form-control"%}
+                                                  </div>
+                                                  <div class="form-group col-md-3">
+                                                    <label>Check Status</label>
+                                                    {{ form.check_status|add_class:"form-control" }}
+                                                  </div>
+                                                  <div class="form-group col-md-1">
+                                                    <label>Action</label>
+                                                    <button type="submit" class="btn btn-md btn-info">Filter</button>
+                                                  </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <strong>
+                                            Credit Report
+                                            {% if info.type == 'cash' %}
+                                                - Memo
+                                            {% elif info.type == 'check' %}
+                                                - Check
+                                            {% endif %}
+
+                                        </strong>
+                                    </div>
+                                    <div class="card-body card-block">
+                                        {% if payments %}
+                                            <table>
+                                              <thead>
+                                                <tr style="font-weight: bold; background-color: rgb(100, 100, 100); color: white;">
+                                                    {% if info.type == 'cash' %}
+                                                      <td>Date</td>
+                                                      <td>Token</td>
+                                                      <td>Name of Outlet</td>
+                                                      <td>Address</td>
+                                                      <td>Memo No</td>
+                                                      <td>Balance</td>
+                                                      <td>DSR</td>
+                                                      <td>Remarks</td>
+                                                    {% elif info.type == 'check' %}
+                                                      <td>Date</td>
+                                                      <td>Token</td>
+                                                      <td>Name of Outlet</td>
+                                                      <td>Address</td>
+                                                      <td>Check No</td>
+                                                      <td>Bank</td>
+                                                      <td>Check Date</td>
+                                                      <td>Balance</td>
+                                                      <td>DSR</td>
+                                                      <td>Remarks</td>
+                                                    {% else %}
+                                                      <td>Date</td>
+                                                      <td>Token</td>
+                                                      <td>Name of Outlet</td>
+                                                      <td>Address</td>
+                                                      <td>Memo No</td>
+                                                      <td>Check No</td>
+                                                      <td>Bank</td>
+                                                      <td>Check Date</td>
+                                                      <td>Balance</td>
+                                                      <td>DSR</td>
+                                                      <td>Remarks</td>
+                                                    {% endif %}
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                                 {% for payment in payments %}
+                                                    <tr>
+                                                      <td>{{ payment.date }}</td>
+                                                      <td>{{ payment.token }}</td>
+                                                      <td><a href="{% url 'edit_payment' payment.id %}">{{ payment.order.outlet }}</a></td>
+                                                      <td>{{ payment.order.address }}</td>
+                                                    {% if info.type == 'cash' %}
+                                                      <td>{{ payment.order.memo_no }}</td>
+                                                    {% elif info.type == 'check' %}
+                                                      <td>{% if payment.check_no %}{{ payment.check_no }}{% endif %}</td>
+                                                      <td>{% if payment.bank_name %}{{ payment.bank_name }}{% endif %}</td>
+                                                      <td>{% if payment.check_date %}{{ payment.check_date }}{% endif %}</td>
+                                                    {% else %}
+                                                      <td>{{ payment.order.memo_no }}</td>
+                                                      <td>{% if payment.check_no %}{{ payment.check_no }}{% endif %}</td>
+                                                      <td>{% if payment.bank_name %}{{ payment.bank_name }}{% endif %}</td>
+                                                      <td>{% if payment.check_date %}{{ payment.check_date }}{% endif %}</td>
+                                                    {% endif %}
+                                                      <td>{{ payment.amount }}</td>
+                                                      <td>{{ payment.order.dsr }}</td>
+                                                      <td>{% if payment.remark %}{{ payment.remark }}{% endif %}</td>
+
+                                                    </tr>
+                                                 {% endfor %}
+                                              </tbody>
+                                            </table>
+                                        {% else %}
+                                            <h4>No Order Found !</h4>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endblock %}

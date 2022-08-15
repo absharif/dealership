@@ -1,0 +1,101 @@
+{% extends "base/base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+ <!-- MAIN CONTENT-->
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="card filter-area">
+                                    <div class="card-header">
+                                        <strong>Order Filter Form</strong>
+                                    </div>
+                                    <div class="card-body card-block">
+                                        <form action="" method="post" class="form-horizontal" id="orderFilterForm" >
+                                            {% csrf_token %}
+
+                                            <div class="form-group row">
+                                                  <div class="form-group col-md-3">
+                                                    <label>From</label>
+                                                    {% render_field form.start_date type="date" class="form-control"%}
+                                                  </div>
+
+                                                  <div class="form-group col-md-3">
+                                                    <label>To</label>
+                                                    {% render_field form.end_date type="date" class="form-control" placeholder="" %}
+                                                  </div>
+
+                                                  <div class="form-group col-md-3">
+                                                    <label>Memo No</label>
+                                                    {% render_field form.memo_no type="text" class="form-control" placeholder="Memo No" %}
+                                                  </div>
+
+                                                  <div class="form-group col-md-3">
+                                                    <label>Status</label>
+                                                    {{ form.status|add_class:"form-control" }}
+                                                  </div>
+
+                                                  <div class="form-group col-md-3">
+                                                    <label>DSR</label>
+                                                    {{ form.dsr|add_class:"form-control" }}
+                                                  </div>
+                                                  <div class="form-group col-md-3">
+                                                    <label>Delivery Man</label>
+                                                    {{ form.delivery_man|add_class:"form-control" }}
+                                                  </div>
+
+                                                  <div class="form-group col-md-1">
+                                                    <label>Action</label>
+                                                    <button type="submit" class="btn btn-md btn-info">Filter</button>
+                                                  </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <strong>Order List</strong>
+                                    </div>
+                                    <div class="card-body card-block">
+                                        {% if orders %}
+                                            <table>
+                                              <thead>
+                                                <tr style="font-weight: bold; background-color: rgb(100, 100, 100); color: white;">
+                                                  <td>Order ID</td>
+                                                  <td>Date</td>
+                                                  <td>Memo No</td>
+                                                  <td>Outlet</td>
+                                                  <td>DSR</td>
+                                                  <td>Status</td>
+
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                                 {% for order in orders %}
+                                                    <tr>
+                                                      <td><a href="{% url 'order' order.id %}">{{ order.id }}</a></td>
+                                                      <td>{{ order.date }}</td>
+                                                      <td>{{ order.memo_no }}</td>
+                                                      <td>{{ order.outlet }}</td>
+                                                      <td>{{ order.dsr }}</td>
+                                                      <td>{{ order.status }}</td>
+                                                    </tr>
+                                                 {% endfor %}
+                                              </tbody>
+                                            </table>
+                                        {% else %}
+                                            <h4>No Order Found !</h4>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endblock %}

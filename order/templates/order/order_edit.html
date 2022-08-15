@@ -1,0 +1,60 @@
+{% extends "base/base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+ <!-- MAIN CONTENT-->
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="card filter-area">
+                                    <div class="card-header">
+                                        <strong>Order Filter Form</strong>
+                                    </div>
+                                    <div class="card-body card-block">
+                                        <form action="" method="post" class="form-horizontal" id="orderFilterForm" >
+                                            {% csrf_token %}
+
+                                            <div class="form-group row">
+                                                  <div class="form-group col-md-12">
+                                                    <label>Memo No</label>
+                                                    {{ form.memo_no|add_class:"form-control" }}
+                                                  </div>
+                                                  <div class="form-group col-md-12">
+                                                    <label>Outlet Name</label>
+                                                    {{ form.outlet|add_class:"form-control" }}
+                                                  </div>
+                                                  <div class="form-group col-md-12">
+                                                    <label>Address</label>
+                                                    {{ form.address|add_class:"form-control" }}
+                                                  </div>
+
+                                                  <div class="form-group col-md-12">
+                                                    <label>Status</label>
+                                                    {{ form.status|add_class:"form-control" }}
+                                                  </div>
+
+                                                  <div class="form-group col-md-12">
+                                                    <label>DSR</label>
+                                                    {{ form.dsr|add_class:"form-control" }}
+                                                  </div>
+
+                                                  <div class="form-group col-md-12">
+                                                    <label>Delivery Man</label>
+                                                    {{ form.delivery_man|add_class:"form-control" }}
+                                                  </div>
+
+                                                  <div class="form-group col-md-12">
+                                                    <button type="submit" class="btn btn-md btn-info">Filter</button>
+                                                  </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endblock %}

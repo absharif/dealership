@@ -1,0 +1,13 @@
+{% extends "base/base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+            <!-- MAIN CONTENT-->
+            <div class="main-content" xmlns="http://www.w3.org/1999/html">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <h1>Hello! {{ logged_in_user_profile.name }}.</h1>
+                        <h3>{{ logged_in_user_profile.bin }}'s Dashboard</h3>
+                    </div>
+                </div>
+            </div>
+{% endblock %}
