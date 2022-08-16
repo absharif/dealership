@@ -12,7 +12,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'django-insecure-4ik5v(x50fr-u#8hr46y%qihdkm=$n!fl)7(ool#jq61zht*ue'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['128.199.165.254', 'localhost', 'dealership.projonmosoft.com']
 
@@ -145,8 +145,8 @@ STATIC_URL = '/static/'
 STATIC_ROOT = '/home/sammy/myprojectdir/static_cdn/static_root/static_root/static'
 #STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static_cdn/static_root/static')
 STATICFILES_DIRS = [
-    os.path.join(os.path.dirname(BASE_DIR), 'static'),
-    # os.path.join(BASE_DIR, 'static'),
+    # os.path.join(os.path.dirname(BASE_DIR), 'static'),
+    os.path.join(BASE_DIR, 'static'),
 ]
 
 
