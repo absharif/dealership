@@ -119,7 +119,8 @@ STATIC_URL = '/static/'
 STATIC_ROOT = '/home/sammy/myprojectdir/static_cdn/static_root/static'
 # STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static_cdn/static_root/static')
 STATICFILES_DIRS = [
-    os.path.join(os.path.dirname(BASE_DIR), 'static'),
+    os.path.join(BASE_DIR, 'static'),
+    # os.path.join(os.path.dirname(BASE_DIR), 'static'),
 ]
 
 
