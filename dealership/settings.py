@@ -1,23 +1,18 @@
-from pathlib import Path
+from decouple import config
 import os
+from decouple import config, Csv
+import dj_database_url
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-# BASE_DIR = Path(__file__).resolve().parent.parent
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-4ik5v(x50fr-u#8hr46y%qihdkm=$n!fl)7(ool#jq61zht*ue'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['127.0.0.1', '192.241.158.9', 'localhost', 'dealership.projonmosoft.com']
 
 
-# Application definition
+SECRET_KEY = config('SECRET_KEY')
+
+
+DEBUG = config('DEBUG', default=False, cast=bool)
+
+ALLOWED_HOSTS = [config('ALLOWED_HOSTS')]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -49,6 +44,10 @@ MY_APP = [
 
 INSTALLED_APPS += OTHER_APP
 INSTALLED_APPS += MY_APP
+
+# Celery settings
+CELERY_BROKER_URL = "redis://localhost:6379"
+CELERY_RESULT_BACKEND = "redis://localhost:6379"
 
 
 MIDDLEWARE = [
@@ -82,31 +81,12 @@ TEMPLATES = [
 WSGI_APPLICATION = 'dealership.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'myproject',
-        'USER': 'myprojectuser',
-        'PASSWORD': 'ASDF23422asdf',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL')
+    )
 }
 
-
-
-# Password validation
-# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -124,12 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/3.2/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'Asia/Dacca'
 
 USE_I18N = True
 
@@ -137,23 +112,31 @@ USE_L10N = True
 
 USE_TZ = True
 
+TIME_ZONE = 'Asia/Dacca'
 
-# Static files (CSS, JavaScript, Images)
+
 STATIC_URL = '/static/'
-# STATIC_ROOT = '/home/ubuntu/myprojectdir/static_cdn/static_root/static_root/static'
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static_cdn/static_root/static/')
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static_cdn/static_root/static')
 STATICFILES_DIRS = [
     os.path.join(os.path.dirname(BASE_DIR), 'static'),
-    # os.path.join(BASE_DIR, 'static'),
 ]
 
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static_cdn/static_root/')
 
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = ''
 LOGOUT_REDIRECT_URL = 'login'
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
+
