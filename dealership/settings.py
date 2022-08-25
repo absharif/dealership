@@ -123,8 +123,8 @@ STATICFILES_DIRS = [
     # os.path.join(os.path.dirname(BASE_DIR), 'static'),
 ]
 
-print(STATIC_ROOT)
-print(STATICFILES_DIRS)
+print('Static root: ' + STATIC_ROOT)
+print('Static DIR: ' + STATICFILES_DIRS)
 
 
 MEDIA_URL = '/media/'
