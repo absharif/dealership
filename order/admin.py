@@ -28,7 +28,12 @@ class AssignDeliveryAdmin(ImportExportModelAdmin):
     list_display = ('order', 'delivery_man')
 
 
+class OutletAdmin(ImportExportModelAdmin):
+    list_display = ('id', 'name', 'address', 'owner_name', 'owner_phone', 'route')
+
+
 admin.site.register(Route, RouteAdmin)
+admin.site.register(Outlet, OutletAdmin)
 admin.site.register(OrderStatus, OrderStatusAdmin)
 admin.site.register(OrderSetting)
 admin.site.register(Order, OrderAdmin)

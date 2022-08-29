@@ -14,6 +14,18 @@ class Route(models.Model):
     bin = models.ForeignKey(BIN, on_delete=models.CASCADE)
 
     def __str__(self):
+        return str(self.id) + ' - ' + str(self.name)
+
+
+class Outlet(models.Model):
+    name = models.CharField(max_length=120)
+    address = models.CharField(max_length=254)
+    route = models.ForeignKey(Route, on_delete=models.CASCADE)
+    owner_name = models.CharField(max_length=120)
+    owner_phone = models.CharField(max_length=11)
+    bin = models.ForeignKey(BIN, on_delete=models.CASCADE)
+
+    def __str__(self):
         return self.name
 
 
@@ -28,8 +40,7 @@ class OrderStatus(models.Model):
 class Order(models.Model):
     date = models.DateField(null=True, blank=True)
     memo_no = models.CharField(max_length=120)
-    outlet = models.CharField(max_length=200)
-    address = models.CharField(max_length=254)
+    outlet = models.ForeignKey(Outlet, on_delete=models.CASCADE, null=True, blank=True)
     dsr = models.ForeignKey(HumanResource, on_delete=models.CASCADE, null=True, blank=True, related_name='dsr_sr')
     delivery_man = models.ForeignKey(HumanResource, on_delete=models.CASCADE, null=True, blank=True, related_name='delivery')
     status = models.ForeignKey(OrderStatus, on_delete=models.CASCADE, null=True, blank=True)

@@ -185,15 +185,12 @@ def confirm_order(request):
         if form.is_valid():
             memo_no = form.cleaned_data['memo_no']
             outlet = form.cleaned_data['outlet']
-            address = form.cleaned_data['address']
             dsr = form.cleaned_data['dsr']
-            route = form.cleaned_data['route']
             remarks = form.cleaned_data['remarks']
 
             order_obj = Order()
             order_obj.memo_no = memo_no
             order_obj.outlet = outlet
-            order_obj.address = address
             order_obj.remarks = remarks
             if dsr:
                 order_obj.dsr = dsr
