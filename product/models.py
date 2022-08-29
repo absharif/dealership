@@ -23,6 +23,7 @@ class Product(models.Model):
     stock = models.IntegerField()
     intake = models.IntegerField()
     damaged = models.IntegerField()
+    free = models.IntegerField()
     bin = models.ForeignKey(BIN, on_delete=models.CASCADE)
 
     def __str__(self):
