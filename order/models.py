@@ -55,11 +55,10 @@ class Order(models.Model):
 def order_post_save(sender, instance, created, *args, **kwargs):
     if created:
         instance.date = datetime.today()
-        instance.status = None
         instance.bin = instance.dsr.bin
         instance.status = OrderSetting.objects.get(bin=instance.dsr.bin).default_order_status
         try:
-            route = Route.objects.get(dsr=instance.dsr)
+            route = Outlet.objects.get(id=instance.outlet.id)
         except Route.DoesNotExist():
             route = None
 
