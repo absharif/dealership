@@ -26,7 +26,7 @@ class Outlet(models.Model):
     bin = models.ForeignKey(BIN, on_delete=models.CASCADE)
 
     def __str__(self):
-        return '[' + str(self.route.name) + '] ' + self.name + ' [ ' + self.owner_name + ']'
+        return self.name + ' [ ' + self.owner_name + ']'
 
 
 class OrderStatus(models.Model):
