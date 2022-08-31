@@ -14,7 +14,7 @@ class Route(models.Model):
     bin = models.ForeignKey(BIN, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.id) + ' - ' + str(self.name)
+        return self.name
 
 
 class Outlet(models.Model):
@@ -26,7 +26,7 @@ class Outlet(models.Model):
     bin = models.ForeignKey(BIN, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return '[' + str(self.route.name) + '] ' + self.name + ' [ ' + self.owner_name + ']'
 
 
 class OrderStatus(models.Model):
