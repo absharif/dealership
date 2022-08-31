@@ -40,7 +40,7 @@ class OrderStatus(models.Model):
 class Order(models.Model):
     date = models.DateField(null=True, blank=True)
     memo_no = models.CharField(max_length=120)
-    outlet = models.ForeignKey(Outlet, on_delete=models.CASCADE, null=True, blank=True)
+    outlet = models.ForeignKey(Outlet, on_delete=models.CASCADE)
     dsr = models.ForeignKey(HumanResource, on_delete=models.CASCADE, null=True, blank=True, related_name='dsr_sr')
     delivery_man = models.ForeignKey(HumanResource, on_delete=models.CASCADE, null=True, blank=True, related_name='delivery')
     status = models.ForeignKey(OrderStatus, on_delete=models.CASCADE, null=True, blank=True)
