@@ -15,6 +15,8 @@ urlpatterns = [
     path('product/', include('product.urls')),
     path('order/', include('order.urls')),
 
+    path("select2/", include("django_select2.urls")),
+
     path('login/', views.user_login, name='login'),
     path('logout/', views.user_logout, name='logout'),
 ]

@@ -2,18 +2,34 @@ from django import forms
 from .models import *
 from bin.models import BIN
 from hr.models import HumanResource
+from django_select2 import forms as s2forms
+
+
+class StoreWidget(s2forms.ModelSelect2Widget):
+    search_fields = [
+        "name__icontains",
+        # "owner_name__icontains",
+        # "owner_number__icontains",
+    ]
 
 
 class NewOrderForm(forms.ModelForm):
     class Meta:
         model = Order
         exclude = ('date', 'bin', 'status' 'route')
+        # fields = "__all__"
+        widgets = {
+            "outlet": StoreWidget,
+        }
 
 
 class EditOrderForm(forms.ModelForm):
     class Meta:
         model = Order
         exclude = ('date', 'bin')
+        widgets = {
+            "outlet": StoreWidget,
+        }
 
 
 class OrderFilterForm(forms.Form):

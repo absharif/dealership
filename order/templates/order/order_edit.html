@@ -25,10 +25,6 @@
                                                     <label>Outlet Name</label>
                                                     {{ form.outlet|add_class:"form-control" }}
                                                   </div>
-                                                  <div class="form-group col-md-12">
-                                                    <label>Address</label>
-                                                    {{ form.address|add_class:"form-control" }}
-                                                  </div>
 
                                                   <div class="form-group col-md-12">
                                                     <label>Status</label>
@@ -50,6 +46,8 @@
                                                   </div>
                                             </div>
                                         </form>
+                                        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                                        {{ form.media.js }}
                                     </div>
                                 </div>
                             </div>

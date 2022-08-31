@@ -20,10 +20,10 @@ class Product(models.Model):
     gross_price = models.FloatField()
     trade_price = models.FloatField()
     discount = models.FloatField()
-    stock = models.IntegerField()
     intake = models.IntegerField()
     damaged = models.IntegerField()
     free = models.IntegerField()
+    stock = models.IntegerField()
     bin = models.ForeignKey(BIN, on_delete=models.CASCADE)
 
     def __str__(self):
