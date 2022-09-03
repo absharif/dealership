@@ -13,6 +13,4 @@ class LedgerPostingAdmin(ImportExportModelAdmin):
 
 admin.site.register(ChartOfAccount, ChartOfAccountAdmin)
 admin.site.register(LedgerPosting, LedgerPostingAdmin)
-admin.site.register(Payment)
-admin.site.register(Bank)
-admin.site.register(CheckStatus)
+

@@ -13,4 +13,8 @@ urlpatterns = [
     path('order_confirmed/', views.order_confirmed, name='order_confirmed'),
 
     path('delivery_sheet/', views.delivery_sheet, name='delivery_sheet'),
+
+    path('payments/', views.payments, name='payments'),
+    path('new_payment/', views.new_payment, name='new_payment'),
+    path('edit_payment/<int:id>/', views.edit_payment, name='edit_payment'),
 ]

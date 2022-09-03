@@ -71,6 +71,11 @@ def order(request, id):
         except:
             order_items = None
 
+        try:
+            order_payments = Payments.objects.filter(order=order_obj)
+        except:
+            order_items = None
+
     context['order_obj'] = order_obj
     context['order_items'] = order_items
     return render(request, "order/order.html", {'context': context})
@@ -254,3 +259,141 @@ def delivery_sheet(request):
     else:
         form = DeliverySheetForm()
     return render(request, "order/delivery_sheet.html", {'form': form, 'products': product_list})
+
+
+@login_required
+def payments(request):
+    info = {}
+    try:
+        bin = BIN.objects.get(id=request.session['bin'])
+    except BIN.DoesNotExist:
+        bin = None
+
+    start_date = datetime.today()
+    end_date = datetime.today()
+    try:
+        payment_list = Payment.objects.filter(bin=bin)
+    except Payment.DoesNotExist():
+        payment_list = None
+
+    if request.method == 'POST':
+        submitted = True
+        form = PaymentFilterForm(data=request.POST)
+        if form.is_valid():
+            start_date = form.cleaned_data['start_date']
+            end_date = form.cleaned_data['end_date']
+            token = form.cleaned_data['token']
+            order = form.cleaned_data['order']
+            type = form.cleaned_data['type']
+            bank_name = form.cleaned_data['bank_name']
+            check_no = form.cleaned_data['check_no']
+            check_date = form.cleaned_data['check_date']
+            check_status = form.cleaned_data['check_status']
+
+            info['type'] = type
+            info['check_status'] = check_status
+
+            if not start_date:
+                start_date = datetime.today()
+
+            if not end_date:
+                end_date = datetime.today()
+
+            payment_list = payment_list.filter(date__range=[start_date, end_date])
+
+            if token and payment_list:
+                payment_list = payment_list.filter(token=token)
+            if order and payment_list:
+                payment_list = payment_list.filter(order__id=order)
+            if type and payment_list:
+                payment_list = payment_list.filter(type=type)
+            if bank_name and payment_list:
+                payment_list = payment_list.filter(bank_name=bank_name)
+            if check_no and payment_list:
+                payment_list = payment_list.filter(check_no=check_no)
+            if check_date and payment_list:
+                payment_list = payment_list.filter(check_date=check_date)
+            if check_status and payment_list:
+                payment_list = payment_list.filter(check_status=check_status)
+    else:
+        payment_list = payment_list.filter(date__range=[start_date, end_date])
+        form = PaymentFilterForm()
+    return render(request, "order/payments.html", {'form': form, 'payments': payment_list, 'info': info})
+
+
+@login_required
+def new_payment(request):
+    try:
+        bin = BIN.objects.get(id=request.session['bin'])
+    except BIN.DoesNotExist:
+        bin = None
+
+    if request.method == 'POST':
+        form = NewPaymentForm(data=request.POST)
+        if form.is_valid():
+            token = form.cleaned_data['token']
+            order = form.cleaned_data['order']
+            type = form.cleaned_data['type']
+            bank_name = form.cleaned_data['bank_name']
+            check_no = form.cleaned_data['check_no']
+            check_date = form.cleaned_data['check_date']
+            check_status = form.cleaned_data['check_status']
+            amount = form.cleaned_data['amount']
+            remark = form.cleaned_data['remark']
+
+            payment = Payment()
+            payment.token = token
+            payment.order = order
+            payment.type = type
+            payment.bank_name = bank_name
+            payment.check_no = check_no
+            payment.check_date = check_date
+            payment.check_status = check_status
+            payment.amount = amount
+            payment.remark = remark
+            payment.date = datetime.today()
+            payment.bin = bin
+            payment.save()
+        return redirect('payments')
+    form = NewPaymentForm()
+    return render(request, "order/new_payment.html", {'form': form})
+
+
+@login_required
+def edit_payment(request, id):
+    try:
+        bin = BIN.objects.get(id=request.session['bin'])
+    except BIN.DoesNotExist:
+        bin = None
+    try:
+        payment = Payment.objects.get(id=id)
+    except Payment.DoesNotExist():
+        payment = None
+
+    if request.method == 'POST':
+        form = NewPaymentForm(request.POST, request.FILES, instance=payment)
+        if form.is_valid():
+            token = form.cleaned_data['token']
+            order = form.cleaned_data['order']
+            type = form.cleaned_data['type']
+            bank_name = form.cleaned_data['bank_name']
+            check_no = form.cleaned_data['check_no']
+            check_date = form.cleaned_data['check_date']
+            check_status = form.cleaned_data['check_status']
+            amount = form.cleaned_data['amount']
+            remark = form.cleaned_data['remark']
+
+            if payment:
+                payment.token = token
+                payment.order = order
+                payment.type = type
+                payment.bank_name = bank_name
+                payment.check_no = check_no
+                payment.check_date = check_date
+                payment.check_status = check_status
+                payment.amount = amount
+                payment.remark = remark
+                payment.save()
+        return redirect('payments')
+    form = NewPaymentForm(request.POST or None, instance=payment)
+    return render(request, "order/new_payment.html", {'form': form})

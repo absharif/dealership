@@ -61,6 +61,42 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <strong>Payments
+                                            <!--<span><a href="{% url 'order_item_edit' context.order_obj.id  %}">[Edit]</a></span>-->
+                                        </strong>
+                                    </div>
+                                    <div class="card-body card-block">
+                                        <table>
+                                              <thead>
+                                                <tr style="font-weight: bold; background-color: rgb(100, 100, 100); color: white;">
+                                                  <td>Date</td>
+                                                  <td>Token</td>
+                                                  <td>Memo No</td>
+                                                  <td>Check No</td>
+                                                  <td>Bank</td>
+                                                  <td>Check Date</td>
+                                                  <td>Remarks</td>
+                                                  <td>Balance</td>
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+
+                                                {% for item in context.payments %}
+                                                    <tr>
+                                                      <td>{{ item }}</td>
+                                                    </tr>
+
+                                                 {% endfor %}
+                                              </tbody>
+                                            </table>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>

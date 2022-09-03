@@ -28,6 +28,8 @@
             <li><a href="{% url 'orders' %}">- Orders</a></li>
             <li><a href="{% url 'new_order' %}">- New Order</a></li>
             <li><a href="{% url 'delivery_sheet' %}">- Delivery Sheet</a></li>
+            <li><a href="{% url 'payments' %}">- Payments</a></li>
+            <li><a href="{% url 'new_payment' %}">- New Payment</a></li>
         </ul>
     </li>
 
@@ -35,8 +37,6 @@
         <a class="js-arrow" href="#">
             <i class="fas fa-calculator"></i>Accounts</a>
         <ul class="list-unstyled navbar__sub-list js-sub-list">
-            <li><a href="{% url 'payments' %}">- Payments</a></li>
-            <li><a href="{% url 'new_payment' %}">- New Payments</a></li>
             <li><a href="{% url 'add_income' %}">- Add Income</a></li>
             <li><a href="{% url 'add_expense' %}">- Add Expanse</a></li>
             <li><a href="{% url 'double_entry' %}">- Add Double Entry</a></li>

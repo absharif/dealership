@@ -17,10 +17,6 @@ urlpatterns = [
     # path('fee_head_collection_summary/', views.fee_head_collection_summary, name='fee_head_collection_summary'),
     # path('assigned_fee/', views.assigned_fee, name='assigned_fee'),
 
-    path('payments/', views.payments, name='payments'),
-    path('new_payment/', views.new_payment, name='new_payment'),
-    path('edit_payment/<int:id>/', views.edit_payment, name='edit_payment'),
-
 
     path('add_expense/', views.add_expense, name='add_expense'),
     path('add_income/', views.add_income, name='add_income'),

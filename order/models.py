@@ -97,3 +97,40 @@ class OrderSetting(models.Model):
 
     def __str__(self):
         return self.default_order_status.name
+
+
+
+class Bank(models.Model):
+    name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
+
+
+class CheckStatus(models.Model):
+    name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
+
+
+class Payment(models.Model):
+    TYPE = (
+        ('cash', 'Cash'),
+        ('check', 'Check')
+    )
+
+    date = models.DateField()
+    token = models.CharField(max_length=10)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True, blank=True)
+    type = models.CharField(max_length=10, choices=TYPE, default='cash')
+    bank_name = models.ForeignKey(Bank, on_delete=models.CASCADE, blank=True, null=True)
+    check_no = models.CharField(max_length=30, blank=True, null=True)
+    check_date = models.DateField(blank=True, null=True)
+    check_status = models.ForeignKey(CheckStatus, on_delete=models.CASCADE, blank=True, null=True)
+    amount = models.IntegerField()
+    remark = models.CharField(max_length=254, null=True, blank=True)
+    bin = models.ForeignKey(BIN, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.order.outlet) + ' : ' + str(self.amount)

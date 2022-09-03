@@ -43,3 +43,26 @@ class OrderFilterForm(forms.Form):
 
 class DeliverySheetForm(forms.Form):
     delivery_man = forms.ModelChoiceField(queryset=HumanResource.objects.all(), required=False)
+
+
+class PaymentFilterForm(forms.Form):
+    TYPE = (
+        (None, '---'),
+        ('cash', 'Cash'),
+        ('check', 'Check')
+    )
+    start_date = forms.DateField(required=False)
+    end_date = forms.DateField(required=False)
+    token = forms.CharField(required=False)
+    order = forms.IntegerField(required=False)
+    type = forms.ChoiceField(choices=TYPE, required=False)
+    bank_name = forms.ModelChoiceField(queryset=Bank.objects.all(), required=False)
+    check_no = forms.CharField(required=False)
+    check_date = forms.DateField(required=False)
+    check_status = forms.ModelChoiceField(queryset=CheckStatus.objects.all(), required=False)
+
+
+class NewPaymentForm(forms.ModelForm):
+    class Meta:
+        model = Payment
+        exclude = ('date', 'bin')
