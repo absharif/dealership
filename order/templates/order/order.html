@@ -36,28 +36,32 @@
                                         </strong>
                                     </div>
                                     <div class="card-body card-block">
+                                        {% if context.order_items %}
                                         <table>
-                                              <thead>
-                                                <tr style="font-weight: bold; background-color: rgb(100, 100, 100); color: white;">
-                                                  <td>Name</td>
-                                                  <td>Unit Price</td>
-                                                  <td>Quantity</td>
-                                                  <!--<td>Total</td>-->
+                                          <thead>
+                                            <tr style="font-weight: bold; background-color: rgb(100, 100, 100); color: white;">
+                                              <td>Name</td>
+                                              <td>Unit Price</td>
+                                              <td>Quantity</td>
+                                              <!--<td>Total</td>-->
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+
+                                            {% for item in context.order_items %}
+                                                <tr>
+                                                  <td style="text-align:left; padding-left:10px;">{{ item.product.name }}</td>
+                                                  <td>{{ item.product.trade_price }}</td>
+                                                  <td>{{ item.quantity }}</td>
+                                                  <!--<td>{{ item.quantity }}</td>-->
                                                 </tr>
-                                              </thead>
-                                              <tbody>
 
-                                                {% for item in context.order_items %}
-                                                    <tr>
-                                                      <td style="text-align:left; padding-left:10px;">{{ item.product.name }}</td>
-                                                      <td>{{ item.product.trade_price }}</td>
-                                                      <td>{{ item.quantity }}</td>
-                                                      <!--<td>{{ item.quantity }}</td>-->
-                                                    </tr>
-
-                                                 {% endfor %}
-                                              </tbody>
-                                            </table>
+                                             {% endfor %}
+                                          </tbody>
+                                        </table>
+                                        {% else %}
+                                            <p>No Record Found!</p>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -66,7 +70,7 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <strong>Payments
-                                            <!--<span><a href="{% url 'order_item_edit' context.order_obj.id  %}">[Edit]</a></span>-->
+                                            <span><a href="{% url 'new_payment' %}">[Add New]</a></span>
                                         </strong>
                                     </div>
                                     <div class="card-body card-block">

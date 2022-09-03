@@ -122,7 +122,7 @@ class Payment(models.Model):
 
     date = models.DateField()
     token = models.CharField(max_length=10)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True, blank=True)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
     type = models.CharField(max_length=10, choices=TYPE, default='cash')
     bank_name = models.ForeignKey(Bank, on_delete=models.CASCADE, blank=True, null=True)
     check_no = models.CharField(max_length=30, blank=True, null=True)

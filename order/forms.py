@@ -62,7 +62,16 @@ class PaymentFilterForm(forms.Form):
     check_status = forms.ModelChoiceField(queryset=CheckStatus.objects.all(), required=False)
 
 
+class OrderWidget(s2forms.ModelSelect2Widget):
+    search_fields = [
+        "id__icontains",
+    ]
+
+
 class NewPaymentForm(forms.ModelForm):
     class Meta:
         model = Payment
         exclude = ('date', 'bin')
+        widgets = {
+            "order": OrderWidget,
+        }
