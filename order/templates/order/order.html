@@ -70,29 +70,39 @@
                                         </strong>
                                     </div>
                                     <div class="card-body card-block">
+                                        {% if context.order_payments %}
                                         <table>
-                                              <thead>
-                                                <tr style="font-weight: bold; background-color: rgb(100, 100, 100); color: white;">
-                                                  <td>Date</td>
-                                                  <td>Token</td>
-                                                  <td>Memo No</td>
-                                                  <td>Check No</td>
-                                                  <td>Bank</td>
-                                                  <td>Check Date</td>
-                                                  <td>Remarks</td>
-                                                  <td>Balance</td>
+                                          <thead>
+                                            <tr style="font-weight: bold; background-color: rgb(100, 100, 100); color: white;">
+                                              <td>Date</td>
+                                              <td>Token</td>
+                                              <td>Memo No</td>
+                                              <td>Check No</td>
+                                              <td>Bank</td>
+                                              <td>Check Date</td>
+                                              <td>Remark</td>
+                                              <td>Balance</td>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+
+                                            {% for item in context.order_payments %}
+                                                <tr>
+                                                  <td>{{ item.date }}</td>
+                                                  <td>{{ item.token }}</td>
+                                                  <td>{{ item.memo_no }}</td>
+                                                  <td>{% if item.check_no %}{{ item.check_no }}{% endif %}</td>
+                                                  <td>{% if item.bank_name %}{{ item.bank_name }}{% endif %}</td>
+                                                  <td>{% if check_date %}{{ item.check_date }}{% endif %}</td>
+                                                  <td>{{ item.remark }}</td>
+                                                  <td>{{ item.amount}}</td>
                                                 </tr>
-                                              </thead>
-                                              <tbody>
-
-                                                {% for item in context.payments %}
-                                                    <tr>
-                                                      <td>{{ item }}</td>
-                                                    </tr>
-
-                                                 {% endfor %}
-                                              </tbody>
-                                            </table>
+                                             {% endfor %}
+                                          </tbody>
+                                        </table>
+                                        {% else %}
+                                            <p>No Record Found!</p>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>

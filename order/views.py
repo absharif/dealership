@@ -72,12 +72,13 @@ def order(request, id):
             order_items = None
 
         try:
-            order_payments = Payments.objects.filter(order=order_obj)
+            order_payments = Payment.objects.filter(order=order_obj)
         except:
-            order_items = None
+            order_payments = None
 
     context['order_obj'] = order_obj
     context['order_items'] = order_items
+    context['order_payments'] = order_payments
     return render(request, "order/order.html", {'context': context})
 
 
