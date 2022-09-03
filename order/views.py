@@ -361,6 +361,49 @@ def new_payment(request):
 
 
 @login_required
+def new_payment_by_order(request, order_id):
+    try:
+        bin = BIN.objects.get(id=request.session['bin'])
+    except BIN.DoesNotExist:
+        bin = None
+
+    try:
+        order = Order.objects.get(id=order_id)
+    except BIN.DoesNotExist:
+        order = None
+
+    if order:
+        if request.method == 'POST':
+            form = NewPaymenByOrdertForm(data=request.POST)
+            if form.is_valid():
+                token = form.cleaned_data['token']
+                type = form.cleaned_data['type']
+                bank_name = form.cleaned_data['bank_name']
+                check_no = form.cleaned_data['check_no']
+                check_date = form.cleaned_data['check_date']
+                check_status = form.cleaned_data['check_status']
+                amount = form.cleaned_data['amount']
+                remark = form.cleaned_data['remark']
+
+                payment = Payment()
+                payment.token = token
+                payment.order = order
+                payment.type = type
+                payment.bank_name = bank_name
+                payment.check_no = check_no
+                payment.check_date = check_date
+                payment.check_status = check_status
+                payment.amount = amount
+                payment.remark = remark
+                payment.date = datetime.today()
+                payment.bin = bin
+                payment.save()
+            return redirect('order', order.id)
+    form = NewPaymenByOrdertForm()
+    return render(request, "order/new_payment_by_order.html", {'form': form})
+
+
+@login_required
 def edit_payment(request, id):
     try:
         bin = BIN.objects.get(id=request.session['bin'])

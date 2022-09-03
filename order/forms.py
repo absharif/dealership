@@ -75,3 +75,9 @@ class NewPaymentForm(forms.ModelForm):
         widgets = {
             "order": OrderWidget,
         }
+
+
+class NewPaymenByOrdertForm(forms.ModelForm):
+    class Meta:
+        model = Payment
+        exclude = ('order', 'date', 'bin')

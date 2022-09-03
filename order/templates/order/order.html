@@ -70,7 +70,7 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <strong>Payments
-                                            <span><a href="{% url 'new_payment' %}">[Add New]</a></span>
+                                            <span><a href="{% url 'new_payment_by_order' context.order_obj.id %}">[Add New]</a></span>
                                         </strong>
                                     </div>
                                     <div class="card-body card-block">

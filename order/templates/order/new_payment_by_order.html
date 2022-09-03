@@ -1,0 +1,67 @@
+{% extends "base/base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+ <!-- MAIN CONTENT-->
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="card filter-area">
+                                    <div class="card-header">
+                                        <strong>New Payment Form</strong>
+                                    </div>
+                                    <div class="card-body card-block">
+                                        <form action="" method="post" class="form-horizontal" id="orderFilterForm" >
+                                            {% csrf_token %}
+
+                                            <div class="form-group row">
+
+                                                  <div class="form-group col-md-3">
+                                                    <label>Token</label>
+                                                    {{ form.token|add_class:"form-control" }}
+                                                  </div>
+                                                  <div class="form-group col-md-12">
+                                                    <label>Payment Type</label>
+                                                    {{ form.type|add_class:"form-control" }}
+                                                  </div>
+                                                  <div class="form-group col-md-12">
+                                                    <label>Banks Name</label>
+                                                    {{ form.bank_name|add_class:"form-control" }}
+                                                  </div>
+                                                  <div class="form-group col-md-12">
+                                                    <label>Check No</label>
+                                                    {{ form.check_no|add_class:"form-control" }}
+                                                  </div>
+                                                  <div class="form-group col-md-12">
+                                                    <label>Check Date</label>
+                                                    {% render_field form.check_date type="date" class="form-control"%}
+                                                  </div>
+                                                  <div class="form-group col-md-12">
+                                                    <label>Check Status</label>
+                                                    {{ form.check_status|add_class:"form-control" }}
+                                                  </div>
+                                                  <div class="form-group col-md-12">
+                                                    <label>Amount</label>
+                                                    {{ form.amount|add_class:"form-control" }}
+                                                  </div>
+                                                  <div class="form-group col-md-12">
+                                                    <label>Remarks</label>
+                                                    {{ form.remark|add_class:"form-control" }}
+                                                  </div>
+                                                  <div class="form-group col-md-12">
+                                                    <button style="width:100%;" type="submit" class="btn btn-md btn-info">Save</button>
+                                                  </div>
+                                            </div>
+                                        </form>
+                                        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                                            {{ form.media.js }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endblock %}
